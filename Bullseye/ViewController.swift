@@ -11,10 +11,13 @@ import UIKit
 class ViewController: UIViewController {
     
     var currentValue: Int = 0
+    
+    @IBOutlet weak var slider: UISlider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let roundedValue = slider.value.rounded()
+        currentValue = Int(roundedValue)
     }
 
     @IBAction func showHitMeAlert() {
@@ -31,9 +34,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
-//        print("The value of the slider is: \(slider.value) ")
         let roundedValue = slider.value.rounded()
-//        print("The rounded value of the slider is: \(roundedValue) ")
         currentValue = Int(roundedValue)
     }
     
