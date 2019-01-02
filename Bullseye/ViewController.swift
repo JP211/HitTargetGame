@@ -10,21 +10,22 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var currentValue: Int = 0
-    var targetValue: Int = 0
-    var score: Int = 0
-    var round: Int = 0
+    var currentValue = 0
+    var targetValue = 0
+    var score = 0
+    var round = 0
     
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var roundLabel: UILabel!
-    @IBOutlet weak var slider: UISlider!
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let roundedValue = slider.value.rounded()
         currentValue = Int(roundedValue)
-        startNewRound()
+        startNewGame()
     }
 
     @IBAction func showHitMeAlert() {
@@ -55,13 +56,15 @@ class ViewController: UIViewController {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Woot", style: .default, handler: nil)
+        let action = UIAlertAction(title: "Woot", style: .default, handler: {
+            action in
+            self.startNewRound()
+        })
      
         alert.addAction(action)
         
         present(alert, animated: true, completion: nil)
-        
-        startNewRound()
+       
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
@@ -81,6 +84,17 @@ class ViewController: UIViewController {
         targetLabel.text = "\(targetValue)"
         scoreLabel.text = "\(score)"
         roundLabel.text = "\(round)"
+    }
+    
+    func startNewGame() {
+        score = 0
+        round = 0
+        startNewRound()
+    }
+    
+    // Will add additional functionality for user stats etc. in future
+    @IBAction func newGameButtonPressed(_ sender: Any) {
+        startNewGame()
     }
     
 }
